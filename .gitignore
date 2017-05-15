@@ -1,0 +1,35 @@
+## General rules
+
+# Build folders
+[Bb]in/
+[Oo]bj/
+
+# NPM packages
+npm-debug.log
+node_modules
+
+# NuGet packages
+packages
+
+# Publish profiles
+*.pubxml
+
+# User-specific files
+*.suo
+*.user
+
+# Visual Studio
+.vs/
+
+# Others
+~$*
+Thumbs.db
+
+## Project specific rules
+
+# AngularClient
+AngularClient/dist
+AngularClient/out-tsc
+
+#AngularClient/e2e/*.js
+#AngularClient/e2e/*.map
