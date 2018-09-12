@@ -15,15 +15,18 @@ Out of the box, OData adapter fails to load with the following error message:
 
     Unable to initialize OData.  Needed to support remote OData services
 
-When traced back, it is related with `global` object being empty, which is used in `\breeze-client\breeze.debug.js` file, `__requireLibCore` function:
+The issue is related with `global` object being empty, which is used in `\breeze-client\breeze.debug.js` file, `__requireLibCore` function:
 
     Line 424: var window = global.window;
     
-Since `window` variable itself is alrealdy available in that context, commenting out the line solves the issue.
+Since `window` variable itself is already available in that context, commenting out this line solves the problem.
 
-`breeze-client-odata-fix.ts` file was introduced as a fix, which is called before using `breeze-client` library in `app.module`
+`breeze-client-odata-fix.ts` file was introduced that overrides `__requireLibCore` and its parent `requireLib` functions, and being imported before using `breeze-client` library in `app.module`
 
     Line 5: import "./breeze-client-odata-fix";
+    
+The issue on BreezeJS repository:  
+https://github.com/Breeze/breeze.js/issues/221
 
 ### Changelog
 
