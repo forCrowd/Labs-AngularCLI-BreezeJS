@@ -14,7 +14,7 @@ function requireLib(libNames, errMessage): any {
 
 // Returns the 'libName' module if loaded or else returns undefined
 function __requireLibCore(libName) {
-  //var window = global.window; // breeze fix
+  //var window = global.window; // Fix: Otherwise OData adapter fails to load
   if (!window) return; // Must run in a browser. Todo: add commonjs support
 
   // get library from browser globals if we can
@@ -27,7 +27,7 @@ function __requireLibCore(libName) {
   // Developer should bootstrap such that the breeze module
   // loads after all other libraries that breeze should find with this method
   // See documentation
-  var r = (window as any).require; // UPDATED LINE
+  var r = (window as any).require;
   if (r) { // if require exists
     if (r.defined) { // require.defined is not standard and may not exist
       // require.defined returns true if module has been loaded

@@ -5,38 +5,25 @@ An example project that works with Angular CLI & BreezeJS with OData adapter
 Angular version: 6.1.7  
 BreezeJS version: 1.7.1
 
-### Details
+### Setup & Run
 
-Current version works out of the box, by using a fix for OData adapter.
+After installing npm packages with `npm install`, call `ng serve` command to run the application
 
-* breeze.debug.js: In `__requireLibCore` function, the following line was commented out.
+### OData adapter fix
 
-      var window = global.window;
-    
-Somehow `global` variable contains an empty object in this setup (related with `tsconfig.json` uses `module: es2015`?).
-
-On the other hand, `window` global variable itself is already available, so disabling this line allows the function to make the necessary checks in the following lines.
-
-In order to make "OData" adapter work, "breeze-client-odata-fix" ts had to be introduced.
-
-
-To run the application, you can just `ng serve` command.
-
-### Fixed & Original Packages
-
-Modified library is located under `node_modules-fixed` folder, and configured in `tsconfig-fixed.json` & `src\tsconfig.app.json` files.
-
-To see the result with original package, update `src\tsconfig.app.json` file by replacing
-
-    "extends": "../tsconfig-fixed.json",
-      
-with 
-
-    "extends": "../tsconfig.json",
-
-During the application load, it should display this error message in the console:
+Out of the box, OData adapter fails to load with the following error message:
 
     Unable to initialize OData.  Needed to support remote OData services
+
+When traced back, it is related with `global` object being empty, which is used in `\breeze-client\breeze.debug.js` file, `__requireLibCore` function:
+
+    Line 424: var window = global.window;
+    
+Since `window` variable itself is alrealdy available in that context, commenting out the line solves the issue.
+
+`breeze-client-odata-fix.ts` file was introduced as a fix, which is called before using `breeze-client` library in `app.module`
+
+    Line 5: import "./breeze-client-odata-fix";
 
 ### Changelog
 
