@@ -1,22 +1,24 @@
-﻿# Angular CLI & BreezeJS
+﻿# Angular CLI & BreezeJS OData Example
 
-An example project that uses both Angular CLI & BreezeJS.
+An example project that works with Angular CLI & BreezeJS with OData adapter
+
+Angular version: 6.1.7  
+BreezeJS version: 1.7.1
 
 ### Details
 
-In order to run BreezeJS in a Angular CLI project, "breeze" library had to be modified in two places:
+Current version works out of the box, by using a fix for OData adapter.
 
-* package.json: Value of `main` property was updated from `breeze.debug.js` to `breeze.base.debug.js`.
-
-Otherwise, Angular CLI loads `breeze.debug.js`, which contains the whole library.
-
-* breeze.base.debug.js: In `__requireLibCore` function, the following line was commented out.
+* breeze.debug.js: In `__requireLibCore` function, the following line was commented out.
 
       var window = global.window;
     
 Somehow `global` variable contains an empty object in this setup (related with `tsconfig.json` uses `module: es2015`?).
 
 On the other hand, `window` global variable itself is already available, so disabling this line allows the function to make the necessary checks in the following lines.
+
+In order to make "OData" adapter work, "breeze-client-odata-fix" ts had to be introduced.
+
 
 To run the application, you can just `ng serve` command.
 
@@ -37,6 +39,11 @@ During the application load, it should display this error message in the console
     Unable to initialize OData.  Needed to support remote OData services
 
 ### Changelog
+
+**2.0.0**
+
+* Package upgrades: Angular 6.1.7, BreezeJS 1.7.1
+* "node-modules-fixed" folder approach was replaced with "breeze-client-odata-fix.ts" file
 
 **1.0.0**
 
