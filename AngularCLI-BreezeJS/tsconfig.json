@@ -1,8 +1,8 @@
-﻿{
+{
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -12,14 +12,8 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "paths": {
-      "breeze-client": [ "../node_modules/breeze-client" ],
-      "breeze.dataService.odata": [ "../node_modules/breeze-client/breeze.dataService.odata.js" ],
-      "breeze.modelLibrary.backingStore": [ "../node_modules/breeze-client/breeze.modelLibrary.backingStore.js" ],
-      "breeze.uriBuilder.odata": [ "../node_modules/breeze-client/breeze.uriBuilder.odata.js" ]
-    },
     "lib": [
-      "es2016",
+      "es2017",
       "dom"
     ]
   }

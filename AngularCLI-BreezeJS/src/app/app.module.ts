@@ -1,44 +1,44 @@
-﻿import { Component, Injectable, NgModule } from "@angular/core";
-import { Http, HttpModule } from "@angular/http";
+import { Component, Injectable, NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 import { BrowserModule } from "@angular/platform-browser";
 
-import { BreezeBridgeAngularModule } from "breeze-bridge-angular";
-import { core, config, EntityManager, DataService } from "breeze-client";
-import "breeze.dataService.odata";
-import "breeze.modelLibrary.backingStore";
-import "breeze.uriBuilder.odata";
+import "./breeze-client-odata-fix";
+
+import { BreezeBridgeHttpClientModule } from "breeze-bridge2-angular";
+import { config, EntityManager } from "breeze-client";
 import "datajs";
 
 @Injectable()
 export class AppEntityManager extends EntityManager {
 
-    constructor(private breezeBridgeAngularModule: BreezeBridgeAngularModule) {
-        super();
+  constructor(private breezeBridgeAngularModule: BreezeBridgeHttpClientModule) {
+    super();
 
-        config.initializeAdapterInstance("uriBuilder", "odata");
-        config.initializeAdapterInstance("dataService", "webApiOData", true);
-    }
+    config.initializeAdapterInstance("uriBuilder", "odata");
+    config.initializeAdapterInstance("dataService", "webApiOData", true);
+  }
 }
 
 // AppComponent
 @Component({
-    selector: "app",
-    template: "It works :)"
+  selector: "app-root",
+  template: "It works :)"
 })
 export class AppComponent {
-    constructor(appEntityManager: AppEntityManager) { }
+  constructor(appEntityManager: AppEntityManager) { }
 }
 
 // AppModule
 @NgModule({
-    bootstrap: [AppComponent],
-    declarations: [AppComponent],
-    imports: [
-        BrowserModule,
-        BreezeBridgeAngularModule,
-    ],
-    providers: [
-        AppEntityManager
-    ]
+  bootstrap: [AppComponent],
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    BreezeBridgeHttpClientModule
+  ],
+  providers: [
+    AppEntityManager
+  ]
 })
 export class AppModule { }
